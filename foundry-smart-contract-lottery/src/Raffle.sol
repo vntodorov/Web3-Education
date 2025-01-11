@@ -15,6 +15,8 @@ contract Riffle is VRFConsumerBaseV2Plus {
     /* Errors */
     error Raffle_SendMoreToEnterRaffle();
 
+    error Raffle_TransferFailed();
+
     uint16 private constant REQUEST_CONFIRMATIONS = 3;
 
     uint32 private constant NUM_WORDS = 1;
@@ -33,6 +35,8 @@ contract Riffle is VRFConsumerBaseV2Plus {
     address payable[] private s_players;
 
     uint256 private s_lastTimeStamp;
+
+    address private s_recentWinner;
 
     /* Events */
     event RaffleEntered(address indexed player);
@@ -85,7 +89,15 @@ contract Riffle is VRFConsumerBaseV2Plus {
     function fulfillRandomWords(
         uint256 requestId,
         uint256[] calldata randomWords
-    ) internal override {}
+    ) internal override {
+        uint256 indexOfWinner = randomWords[0] % s_players.length;
+        address payable recentWinner = s_players[indexOfWinner];
+        s_recentWinner = recentWinner;
+        (bool success, ) = recentWinner.call{value: address(this).balance}("");
+        if (!success) {
+            revert Raffle_TransferFailed();
+        }
+    }
 
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
