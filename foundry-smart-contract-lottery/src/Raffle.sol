@@ -19,6 +19,12 @@ contract Riffle is VRFConsumerBaseV2Plus {
 
     error Raffle__RaffleNotOpen();
 
+    error Raffle__UpkeepNotNeeded(
+        uint256 balance,
+        uint256 playersLength,
+        uint256 raffleState
+    );
+
     /* Type Declarations */
     enum RaffleState {
         OPEN,
@@ -98,14 +104,27 @@ contract Riffle is VRFConsumerBaseV2Plus {
      * @return - ignored
      */
     function checkUpkeep(
-        bytes calldata /* checkData */
+        bytes memory /* checkData */
     ) public view returns (bool upkeepNeeded, bytes memory /* performData */) {
-        upkeepNeeded = (block.timestamp - s_lastTimeStamp) > i_interval;
+        bool timeHasPassed = (block.timestamp - s_lastTimeStamp) >= i_interval;
+
+        bool isOpen = s_raffleState == RaffleState.OPEN;
+        bool hasBalance = address(this).balance > 0;
+        bool hasPlayed = s_players.length > 0;
+
+        upkeepNeeded = timeHasPassed && isOpen && hasBalance && hasPlayed;
+        return (upkeepNeeded, "");
     }
 
-    function pickWinner() external {
-        if ((block.timestamp - s_lastTimeStamp) < i_interval) {
-            revert();
+    function performUpkeep(bytes calldata /* performData */) external {
+        (bool upkeepNeeded, ) = checkUpkeep("");
+
+        if (!upkeepNeeded) {
+            revert Raffle__UpkeepNotNeeded(
+                address(this).balance,
+                s_players.length,
+                uint256(s_raffleState)
+            );
         }
 
         s_raffleState = RaffleState.CALCULATING;
