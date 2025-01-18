@@ -110,7 +110,7 @@ contract Riffle is VRFConsumerBaseV2Plus {
 
         bool isOpen = s_raffleState == RaffleState.OPEN;
         bool hasBalance = address(this).balance > 0;
-        bool hasPlayed = s_players.length > 0;
+        bool hasPlayers = s_players.length > 0;
 
         upkeepNeeded = timeHasPassed && isOpen && hasBalance && hasPlayed;
         return (upkeepNeeded, "");
