@@ -5,7 +5,7 @@ import {Script} from "forge-std/Script.sol";
 import {Raffle} from "src/Raffle.sol";
 import {HelperConfig} from "script/HelperConfig.s.sol";
 
-contract DeployRiffle is Script {
+contract DeployRaffle is Script {
     function run() public {}
 
     function deployContract() public returns (Raffle, HelperConfig) {
