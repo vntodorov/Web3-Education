@@ -96,4 +96,15 @@ contract RaffleTest is Test {
 
         assert(!upkeepNeeded);
     }
+
+    function testCheckUpkeepReturnsFalseIfNotEnoughTimeHasPassed() public {
+        vm.prank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.warp(block.timestamp);
+        vm.roll(block.number + 1);
+
+        (bool upkeepNeeded, ) = raffle.checkUpkeep("");
+
+        assert(!upkeepNeeded);
+    }
 }
