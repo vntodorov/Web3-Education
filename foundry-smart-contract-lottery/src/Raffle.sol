@@ -59,6 +59,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
 
     event WinnerPicked(address indexed winner);
 
+    event RequestRaffleWinner(uint256 indexed requestId);
+
     constructor(
         uint256 entranceFee,
         uint256 interval,
@@ -142,6 +144,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
             });
 
         uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
+
+        emit RequestRaffleWinner(requestId);
     }
 
     function fulfillRandomWords(
