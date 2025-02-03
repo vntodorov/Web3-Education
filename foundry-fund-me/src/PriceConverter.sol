@@ -8,7 +8,6 @@ library PriceConverter {
         AggregatorV3Interface priceFeed
     ) internal view returns (uint256) {
         (, int256 answer, , , ) = priceFeed.latestRoundData();
-        // ETH/USD rate in 18 digit
         return uint256(answer * 10000000000);
     }
 
