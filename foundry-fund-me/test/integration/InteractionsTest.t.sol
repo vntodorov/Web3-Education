@@ -14,15 +14,11 @@ contract InteractionsTest is ZkSyncChainChecker, StdCheats, Test {
     FundMe public fundMe;
     HelperConfig public helperConfig;
 
-    uint256 public constant SEND_VALUE = 0.1 ether; // just a value to make sure we are sending enough!
+    uint256 public constant SEND_VALUE = 0.1 ether;
     uint256 public constant STARTING_USER_BALANCE = 10 ether;
     uint256 public constant GAS_PRICE = 1;
 
     address public constant USER = address(1);
-
-    // uint256 public constant SEND_VALUE = 1e18;
-    // uint256 public constant SEND_VALUE = 1_000_000_000_000_000_000;
-    // uint256 public constant SEND_VALUE = 1000000000000000000;
 
     function setUp() external skipZkSync {
         if (!isZkSyncChain()) {
@@ -41,7 +37,6 @@ contract InteractionsTest is ZkSyncChainChecker, StdCheats, Test {
         uint256 preUserBalance = address(USER).balance;
         uint256 preOwnerBalance = address(fundMe.getOwner()).balance;
 
-        // Using vm.prank to simulate funding from the USER address
         vm.prank(USER);
         fundMe.fund{value: SEND_VALUE}();
 
