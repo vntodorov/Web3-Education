@@ -54,7 +54,7 @@ contract HelperConfig is CodeConstants, Script {
     {
         return
             NetworkConfig({
-                priceFeed: 0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF // ETH / USD
+                priceFeed: 0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF
             });
     }
 
