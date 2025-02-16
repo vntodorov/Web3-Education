@@ -1,1 +1,1 @@
-
+This project demonstrates a basic Solidity smart contract for minting NFTs, built using the Foundry framework. It’s a simple practice project where users can mint unique NFTs by interacting with the contract, and explore how NFTs function on the blockchain.
