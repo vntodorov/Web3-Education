@@ -41,5 +41,6 @@ contract BasicNftTest is Test {
             keccak256(abi.encodePacked(basicNft.tokenURI(0))) ==
                 keccak256(abi.encodePacked(PUG))
         );
+        assert(basicNft.getTokenCounter() == 1);
     }
 }
