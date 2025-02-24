@@ -6,3 +6,5 @@ This project demonstrates the creation and management of NFTs on the Ethereum bl
 * <b>Ownership Management</b>: Users can transfer and verify ownership of NFTs, ensuring each token is uniquely owned.
 
 * <b>ERC721 Standard</b>: Implementation of the ERC721 standard for non-fungible tokens, ensuring compatibility with various platforms and wallets.
+
+<i>All images and SVGs are examples.</i>
