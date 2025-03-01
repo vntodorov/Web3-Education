@@ -14,6 +14,8 @@ contract BaseContract {
 
     mapping(address => uint256) private s_participantsWithAmount;
 
+    address[] private s_participants;
+
     function addParticipantWithValue(
         address participantToAdd,
         uint256 value
@@ -22,6 +24,7 @@ contract BaseContract {
             revert BaseContract__CannotParticipateWithZeroValue();
         }
         s_participantsWithAmount[participantToAdd] += value;
+        s_participants.push(participantToAdd);
     }
 
     function deleteParticipant(address participantToDelete) public {
@@ -29,5 +32,11 @@ contract BaseContract {
             revert BaseContract__NoSuchAddressToDelete();
         }
         delete s_participantsWithAmount[participantToDelete];
+    }
+
+    function getParticipant(
+        uint256 indexOfParticipant
+    ) external view returns (address) {
+        return s_participants[indexOfParticipant];
     }
 }
