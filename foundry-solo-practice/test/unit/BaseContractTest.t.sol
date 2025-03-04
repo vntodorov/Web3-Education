@@ -28,4 +28,11 @@ contract BaseContractTest is Test {
 
         assertEq(baseContract.getParticipant(0), participant);
     }
+
+    function testUnseccefulyAddParticipantWithValueBelowZero() public {
+        vm.expectRevert(
+            BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
+        );
+        baseContract.addParticipantWithValue(participant, 0);
+    }
 }
