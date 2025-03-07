@@ -26,13 +26,29 @@ contract BaseContractTest is Test {
             STARTING_PARTICIPANT_BALANCE
         );
 
-        assertEq(baseContract.getParticipant(0), participant);
+        assertEq(
+            baseContract.getParticipantWithAmount(participant),
+            STARTING_PARTICIPANT_BALANCE
+        );
+        assert(baseContract.getParticipant(0) == participant);
     }
 
-    function testUnseccefulyAddParticipantWithValueBelowZero() public {
+    function testUnseccefulyAddParticipantWithZeroValue() public {
         vm.expectRevert(
             BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
         );
         baseContract.addParticipantWithValue(participant, 0);
+    }
+
+    function testSuccessfulyDeleteParticipant() public {
+        baseContract.addParticipantWithValue(
+            participant,
+            STARTING_PARTICIPANT_BALANCE
+        );
+
+        baseContract.deleteParticipant(participant);
+
+        assertEq(baseContract.getParticipant(0), address(0));
+        assert(baseContract.getParticipantWithAmount(participant) == 0);
     }
 }

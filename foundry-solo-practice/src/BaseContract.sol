@@ -32,11 +32,43 @@ contract BaseContract {
             revert BaseContract__NoSuchAddressToDelete();
         }
         delete s_participantsWithAmount[participantToDelete];
+
+        uint256 indexToRemove = findIndexOfParticipant(participantToDelete);
+        if (indexToRemove < s_participants.length) {
+            s_participants[indexToRemove] = s_participants[
+                s_participants.length - 1
+            ];
+        }
+        s_participants.pop();
+    }
+
+    function findIndexOfParticipant(
+        address participantToDelete
+    ) internal view returns (uint256) {
+        for (uint256 i = 0; i < s_participants.length; i++) {
+            if (s_participants[i] == participantToDelete) {
+                return i;
+            }
+        }
+        revert BaseContract__NoSuchAddressToDelete();
+    }
+
+    /**
+     * Getter Functions
+     */
+
+    function getParticipantWithAmount(
+        address participantAddress
+    ) external view returns (uint256) {
+        return s_participantsWithAmount[participantAddress];
     }
 
     function getParticipant(
         uint256 indexOfParticipant
     ) external view returns (address) {
+        if (s_participants.length <= 0) {
+            return address(0);
+        }
         return s_participants[indexOfParticipant];
     }
 }
