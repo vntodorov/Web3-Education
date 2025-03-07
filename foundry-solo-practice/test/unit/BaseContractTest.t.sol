@@ -51,4 +51,11 @@ contract BaseContractTest is Test {
         assertEq(baseContract.getParticipant(0), address(0));
         assert(baseContract.getParticipantWithAmount(participant) == 0);
     }
+
+    function testUnsuccessfulyDeleteParticipant() public {
+        vm.expectRevert(
+            BaseContract.BaseContract__NoSuchAddressToDelete.selector
+        );
+        baseContract.deleteParticipant(participant);
+    }
 }
