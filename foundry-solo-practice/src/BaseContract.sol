@@ -16,6 +16,12 @@ contract BaseContract {
 
     address[] private s_participants;
 
+    address private s_owner;
+
+    constructor() {
+        s_owner = msg.sender;
+    }
+
     function addParticipantWithValue(
         address participantToAdd,
         uint256 value
