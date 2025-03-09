@@ -77,4 +77,8 @@ contract BaseContract {
         }
         return s_participants[indexOfParticipant];
     }
+
+    function getOwner() external view returns (address) {
+        return s_owner;
+    }
 }

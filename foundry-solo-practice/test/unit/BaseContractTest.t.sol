@@ -58,4 +58,8 @@ contract BaseContractTest is Test {
         );
         baseContract.deleteParticipant(participant);
     }
+
+    function testVerifyOwner() public view {
+        assertEq(baseContract.getOwner(), msg.sender);
+    }
 }
