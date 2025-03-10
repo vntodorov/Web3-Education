@@ -62,4 +62,13 @@ contract BaseContractTest is Test {
     function testVerifyOwner() public view {
         assertEq(baseContract.getOwner(), msg.sender);
     }
+
+    function testVerifyOwnerFailure() public {
+        vm.startPrank(participant);
+        baseContract = new BaseContract();
+        vm.stopPrank();
+
+        assertNotEq(baseContract.getOwner(), msg.sender);
+        assertEq(baseContract.getOwner(), participant);
+    }
 }
