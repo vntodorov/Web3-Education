@@ -90,4 +90,11 @@ contract BaseContractTest is Test {
             endingOwnerBalance
         );
     }
+
+    function testWithdrawFromNotOwner() public {
+        vm.expectRevert("Only owner can withdraw");
+        vm.startPrank(participant);
+        baseContract.withdraw();
+        vm.stopPrank();
+    }
 }
