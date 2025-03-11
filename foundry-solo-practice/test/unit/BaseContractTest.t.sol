@@ -71,4 +71,23 @@ contract BaseContractTest is Test {
         assertNotEq(baseContract.getOwner(), msg.sender);
         assertEq(baseContract.getOwner(), participant);
     }
+
+    function testOwnerCanWithdraw() public {
+        uint256 startingContractBalance = address(baseContract).balance;
+        uint256 startingOwnerBalance = baseContract.getOwner().balance;
+
+        baseContract.addParticipantWithValue(
+            participant,
+            STARTING_PARTICIPANT_BALANCE
+        );
+
+        uint256 endingContractBalance = address(baseContract).balance;
+        uint256 endingOwnerBalance = baseContract.getOwner().balance;
+
+        assertEq(endingContractBalance, 0);
+        assertEq(
+            startingContractBalance + startingOwnerBalance,
+            endingOwnerBalance
+        );
+    }
 }

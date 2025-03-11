@@ -48,6 +48,12 @@ contract BaseContract {
         s_participants.pop();
     }
 
+    function withdraw() public payable {
+        require(msg.sender == s_owner, "Only owner can withdraw");
+        (bool sucess, ) = msg.sender.call{value: address(this).balance}("");
+        require(sucess, "Transfer failed");
+    }
+
     function findIndexOfParticipant(
         address participantToDelete
     ) internal view returns (uint256) {
