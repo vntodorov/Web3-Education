@@ -92,7 +92,9 @@ contract BaseContractTest is Test {
     }
 
     function testWithdrawFromNotOwner() public {
-        vm.expectRevert("Only owner can withdraw");
+        vm.expectRevert(
+            BaseContract.BaseContract__OnlyOwnerCanWithdraw.selector
+        );
         vm.startPrank(participant);
         baseContract.withdraw();
         vm.stopPrank();

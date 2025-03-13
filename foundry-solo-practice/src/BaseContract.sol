@@ -12,6 +12,8 @@ contract BaseContract {
 
     error BaseContract__NoSuchAddressToDelete();
 
+    error BaseContract__OnlyOwnerCanWithdraw();
+
     mapping(address => uint256) private s_participantsWithAmount;
 
     address[] private s_participants;
@@ -49,7 +51,7 @@ contract BaseContract {
     }
 
     function withdraw() public payable {
-        require(msg.sender == s_owner, "Only owner can withdraw");
+        require(msg.sender == s_owner, BaseContract__OnlyOwnerCanWithdraw());
         (bool sucess, ) = msg.sender.call{value: address(this).balance}("");
         require(sucess, "Transfer failed");
     }
