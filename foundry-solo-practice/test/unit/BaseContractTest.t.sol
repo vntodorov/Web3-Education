@@ -27,7 +27,7 @@ contract BaseContractTest is Test {
         );
 
         assertEq(
-            baseContract.getParticipantWithAmount(participant),
+            baseContract.getAmountOfParticipant(participant),
             STARTING_PARTICIPANT_BALANCE
         );
         assert(baseContract.getParticipant(0) == participant);
@@ -49,7 +49,7 @@ contract BaseContractTest is Test {
         baseContract.deleteParticipant(participant);
 
         assertEq(baseContract.getParticipant(0), address(0));
-        assert(baseContract.getParticipantWithAmount(participant) == 0);
+        assert(baseContract.getAmountOfParticipant(participant) == 0);
     }
 
     function testUnsuccessfulyDeleteParticipant() public {

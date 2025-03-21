@@ -73,7 +73,7 @@ contract BaseContract {
      * Getter Functions
      */
 
-    function getParticipantWithAmount(
+    function getAmountOfParticipant(
         address participantAddress
     ) external view returns (uint256) {
         return s_participantsWithAmount[participantAddress];
