@@ -1,4 +1,4 @@
-This project demonstrates the creation and management of NFTs on the Ethereum blockchain, allowing users to mint and own unique digital assets. The smart contract provides a simple implementation for minting, transferring, and verifying ownership of NFTs using ERC721 standards.
+This project demonstrates the creation and management of NFTs (dynamic as well) on the Ethereum blockchain, allowing users to mint and own unique digital assets. The smart contract provides a simple implementation for minting, transferring, and verifying ownership of NFTs using ERC721 standards.
 
 # Features
 * <b>NFT Minting</b>: A smart contract that allows users to mint unique tokens with associated metadata, creating verifiable ownership.
