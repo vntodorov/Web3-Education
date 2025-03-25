@@ -41,6 +41,7 @@ contract BaseContract {
         if (value < REQUIRED_MINIMUM_PARTICIPATION) {
             revert BaseContract__CannotParticipateWithAmountBelowTheRequired();
         }
+
         s_participantsWithAmount[participantToAdd] += value;
         s_participants.push(participantToAdd);
     }

@@ -37,7 +37,16 @@ contract BaseContractTest is Test {
         vm.expectRevert(
             BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
         );
-        baseContract.addParticipantWithValue(participant, 0);
+        baseContract.addParticipantWithValue(participant, 0 ether);
+    }
+
+    function testUnseccefulyAddParticipantWithValueBelowRequired() public {
+        vm.expectRevert(
+            BaseContract
+                .BaseContract__CannotParticipateWithAmountBelowTheRequired
+                .selector
+        );
+        baseContract.addParticipantWithValue(participant, 0.1 ether);
     }
 
     function testSuccessfulyDeleteParticipant() public {
