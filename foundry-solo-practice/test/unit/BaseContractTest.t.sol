@@ -20,7 +20,7 @@ contract BaseContractTest is Test {
         baseContract = deployBaseContract.run();
     }
 
-    function testSuccessfulyAddParticipantWithValue() public {
+    function testSuccessfullyAddParticipantWithValue() public {
         baseContract.addParticipantWithValue(
             participant,
             STARTING_PARTICIPANT_BALANCE
@@ -33,14 +33,14 @@ contract BaseContractTest is Test {
         assert(baseContract.getParticipant(0) == participant);
     }
 
-    function testUnseccefulyAddParticipantWithZeroValue() public {
+    function testUnsuccessfullyAddParticipantWithZeroValue() public {
         vm.expectRevert(
             BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
         );
         baseContract.addParticipantWithValue(participant, 0 ether);
     }
 
-    function testUnseccefulyAddParticipantWithValueBelowRequired() public {
+    function testUnsuccessfullyAddParticipantWithValueBelowRequired() public {
         vm.expectRevert(
             BaseContract
                 .BaseContract__CannotParticipateWithAmountBelowTheRequired
@@ -49,7 +49,7 @@ contract BaseContractTest is Test {
         baseContract.addParticipantWithValue(participant, 0.1 ether);
     }
 
-    function testSuccessfulyDeleteParticipant() public {
+    function testSuccessfullyDeleteParticipant() public {
         baseContract.addParticipantWithValue(
             participant,
             STARTING_PARTICIPANT_BALANCE
@@ -61,7 +61,7 @@ contract BaseContractTest is Test {
         assert(baseContract.getAmountOfParticipant(participant) == 0);
     }
 
-    function testUnsuccessfulyDeleteParticipant() public {
+    function testUnsuccessfullyDeleteParticipant() public {
         vm.expectRevert(
             BaseContract.BaseContract__NoSuchAddressToDelete.selector
         );
