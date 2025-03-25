@@ -16,6 +16,10 @@ contract BaseContract {
 
     error BaseContract__TransferFailed();
 
+    error BaseContract__CannotParticipateWithAmountBelowTheRequired();
+
+    uint256 private constant REQUIRED_MINIMUM_PARTICIPATION = 1 ether;
+
     mapping(address => uint256) private s_participantsWithAmount;
 
     address[] private s_participants;
@@ -32,6 +36,10 @@ contract BaseContract {
     ) public {
         if (value <= 0) {
             revert BaseContract__CannotParticipateWithZeroValue();
+        }
+
+        if (value < REQUIRED_MINIMUM_PARTICIPATION) {
+            revert BaseContract__CannotParticipateWithAmountBelowTheRequired();
         }
         s_participantsWithAmount[participantToAdd] += value;
         s_participants.push(participantToAdd);
