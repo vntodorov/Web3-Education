@@ -100,4 +100,12 @@ contract BaseContract {
     function getOwner() external view returns (address) {
         return s_owner;
     }
+
+    function getRequiredMinimumParticipationAmount()
+        external
+        pure
+        returns (uint256)
+    {
+        return REQUIRED_MINIMUM_PARTICIPATION;
+    }
 }
