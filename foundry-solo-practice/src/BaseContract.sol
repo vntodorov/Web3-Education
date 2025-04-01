@@ -106,6 +106,10 @@ contract BaseContract {
         return s_owner;
     }
 
+    function getOwnerBalance() external view returns (uint256) {
+        return s_owner.balance;
+    }
+
     function getRequiredMinimumParticipationAmount()
         external
         pure

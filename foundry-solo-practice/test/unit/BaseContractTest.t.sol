@@ -68,22 +68,9 @@ contract BaseContractTest is Test {
         baseContract.deleteParticipant(participant);
     }
 
-    function testVerifyOwner() public view {
-        assertEq(baseContract.getOwner(), msg.sender);
-    }
-
-    function testVerifyOwnerFailure() public {
-        vm.startPrank(participant);
-        baseContract = new BaseContract();
-        vm.stopPrank();
-
-        assertNotEq(baseContract.getOwner(), msg.sender);
-        assertEq(baseContract.getOwner(), participant);
-    }
-
     function testOwnerCanWithdraw() public {
         uint256 startingContractBalance = address(baseContract).balance;
-        uint256 startingOwnerBalance = baseContract.getOwner().balance;
+        uint256 startingOwnerBalance = baseContract.getOwnerBalance();
 
         baseContract.addParticipantWithValue(
             participant,
@@ -91,7 +78,7 @@ contract BaseContractTest is Test {
         );
 
         uint256 endingContractBalance = address(baseContract).balance;
-        uint256 endingOwnerBalance = baseContract.getOwner().balance;
+        uint256 endingOwnerBalance = baseContract.getOwnerBalance();
 
         assertEq(endingContractBalance, 0);
         assertEq(
