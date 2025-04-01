@@ -108,4 +108,14 @@ contract BaseContractTest is Test {
         baseContract.withdraw();
         vm.stopPrank();
     }
+
+    function testSuccessfullyGetOwnerBecauseParticipant() public {
+        baseContract.addParticipantWithValue(
+            participant,
+            STARTING_PARTICIPANT_BALANCE
+        );
+        vm.startPrank(participant);
+        assertEq(baseContract.getOwner(), baseContract.getOwner());
+        vm.stopPrank();
+    }
 }

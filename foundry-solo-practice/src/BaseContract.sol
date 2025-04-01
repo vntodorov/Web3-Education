@@ -18,6 +18,8 @@ contract BaseContract {
 
     error BaseContract__CannotParticipateWithAmountBelowTheRequired();
 
+    error BaseContract__NoPermissionToSeeOwnner();
+
     uint256 private constant REQUIRED_MINIMUM_PARTICIPATION = 1 ether;
 
     mapping(address => uint256) private s_participantsWithAmount;
@@ -98,6 +100,9 @@ contract BaseContract {
     }
 
     function getOwner() external view returns (address) {
+        if (s_participantsWithAmount[msg.sender] == 0) {
+            revert BaseContract__NoPermissionToSeeOwnner();
+        }
         return s_owner;
     }
 
