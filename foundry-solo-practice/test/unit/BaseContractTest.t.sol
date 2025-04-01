@@ -105,4 +105,11 @@ contract BaseContractTest is Test {
         assertEq(baseContract.getOwner(), baseContract.getOwner());
         vm.stopPrank();
     }
+
+    function testUnsuccessfullyGetOwnerBecauseNotParticipant() public {
+        vm.expectRevert(
+            BaseContract.BaseContract__NoPermissionToSeeOwnner.selector
+        );
+        baseContract.getOwner();
+    }
 }
