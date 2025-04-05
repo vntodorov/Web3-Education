@@ -117,4 +117,8 @@ contract BaseContract {
     {
         return REQUIRED_MINIMUM_PARTICIPATION;
     }
+
+    function getCurrentContractBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
 }
