@@ -63,6 +63,15 @@ contract BaseContract {
         s_participants.pop();
     }
 
+    function fund() public payable {
+        if (msg.value <= 0) {
+            revert BaseContract__CannotParticipateWithZeroValue();
+        }
+
+        s_participantsWithAmount[msg.sender] += msg.value;
+        s_participants.push(msg.sender);
+    }
+
     function withdraw() public payable {
         require(msg.sender == s_owner, BaseContract__OnlyOwnerCanWithdraw());
         (bool sucess, ) = msg.sender.call{value: address(this).balance}("");
