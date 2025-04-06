@@ -112,4 +112,12 @@ contract BaseContractTest is Test {
         );
         baseContract.getOwner();
     }
+
+    function testSuccessfullyFundContract() public {
+        baseContract.fund{value: STARTING_PARTICIPANT_BALANCE}();
+        assertEq(
+            baseContract.getCurrentContractBalance(),
+            STARTING_PARTICIPANT_BALANCE
+        );
+    }
 }
