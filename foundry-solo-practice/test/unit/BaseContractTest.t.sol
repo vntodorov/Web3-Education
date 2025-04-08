@@ -20,6 +20,11 @@ contract BaseContractTest is Test {
         baseContract = deployBaseContract.run();
     }
 
+    modifier fundParticipant() {
+        vm.deal(participant, STARTING_PARTICIPANT_BALANCE);
+        _;
+    }
+
     function testSuccessfullyAddParticipantWithValue() public {
         baseContract.addParticipantWithValue(
             participant,
@@ -119,5 +124,24 @@ contract BaseContractTest is Test {
             baseContract.getCurrentContractBalance(),
             STARTING_PARTICIPANT_BALANCE
         );
+    }
+
+    function testSuccessfullyAddParticipantWithValueAfterFunding()
+        public
+        fundParticipant
+    {
+        vm.startPrank(participant);
+        baseContract.fund{value: STARTING_PARTICIPANT_BALANCE}();
+        vm.stopPrank();
+
+        assertEq(
+            baseContract.getCurrentContractBalance(),
+            STARTING_PARTICIPANT_BALANCE
+        );
+        assertEq(
+            baseContract.getAmountOfParticipant(participant),
+            STARTING_PARTICIPANT_BALANCE
+        );
+        assert(baseContract.getParticipant(0) == participant);
     }
 }
