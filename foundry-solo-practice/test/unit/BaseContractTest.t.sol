@@ -144,4 +144,16 @@ contract BaseContractTest is Test {
         );
         assert(baseContract.getParticipant(0) == participant);
     }
+
+    function testUnsuccessfullyAddParticipantWithValueBelowZeroWhenFunding()
+        public
+        fundParticipant
+    {
+        vm.expectRevert(
+            BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
+        );
+        vm.startPrank(participant);
+        baseContract.fund{value: 0 ether}();
+        vm.stopPrank();
+    }
 }
