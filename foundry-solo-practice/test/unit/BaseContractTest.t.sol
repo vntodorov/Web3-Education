@@ -145,7 +145,7 @@ contract BaseContractTest is Test {
         assert(baseContract.getParticipant(0) == participant);
     }
 
-    function testUnsuccessfullyAddParticipantWithValueBelowZeroWhenFunding()
+    function testUnsuccessfullyAddParticipantWithZeroValueWhenFunding()
         public
         fundParticipant
     {
