@@ -150,7 +150,7 @@ contract BaseContractTest is Test {
         fundParticipant
     {
         vm.expectRevert(
-            BaseContract.BaseContract__CannotParticipateWithZeroValue.selector
+            BaseContract.BaseContract__CannotFundWithZeroValue.selector
         );
         vm.startPrank(participant);
         baseContract.fund{value: 0 ether}();

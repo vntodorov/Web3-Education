@@ -10,6 +10,8 @@ pragma solidity ^0.8.18;
 contract BaseContract {
     error BaseContract__CannotParticipateWithZeroValue();
 
+    error BaseContract__CannotFundWithZeroValue();
+
     error BaseContract__NoSuchAddressToDelete();
 
     error BaseContract__OnlyOwnerCanWithdraw();
@@ -65,7 +67,7 @@ contract BaseContract {
 
     function fund() public payable {
         if (msg.value <= 0) {
-            revert BaseContract__CannotParticipateWithZeroValue();
+            revert BaseContract__CannotFundWithZeroValue();
         }
 
         s_participantsWithAmount[msg.sender] += msg.value;
