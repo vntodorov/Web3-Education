@@ -73,7 +73,7 @@ contract BaseContractTest is Test {
         baseContract.deleteParticipant(participant);
     }
 
-    function testOwnerCanWithdraw() public {
+    function testSuccessfullyWithdrawBecauseOwner() public {
         uint256 startingContractBalance = address(baseContract).balance;
         uint256 startingOwnerBalance = baseContract.getOwnerBalance();
 
@@ -92,7 +92,7 @@ contract BaseContractTest is Test {
         );
     }
 
-    function testWithdrawFromNotOwner() public {
+    function testUnsuccessfullyWithdrawNotOwner() public {
         vm.expectRevert(
             BaseContract.BaseContract__OnlyOwnerCanWithdraw.selector
         );
