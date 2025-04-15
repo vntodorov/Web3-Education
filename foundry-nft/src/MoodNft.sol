@@ -6,7 +6,6 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract MoodNft is ERC721 {
-    //errors
     error NFTStateNft__CantFlipNFTStateIfNotOwner();
     error ERC721Metadata__URI_QueryFor_NonExistentToken();
 
@@ -24,12 +23,12 @@ contract MoodNft is ERC721 {
     mapping(uint256 => NFTState) private s_tokenIdToNFTState;
 
     constructor(
-        string memory sadSvgImageUri,
-        string memory happySvgImageUri
+        string memory happySvgImageUri,
+        string memory sadSvgImageUri
     ) ERC721("Mood NFT", "MN") {
         s_tokenCounter = 0;
-        s_sadSvgImageUri = sadSvgImageUri;
         s_happySvgImageUri = happySvgImageUri;
+        s_sadSvgImageUri = sadSvgImageUri;
     }
 
     function mintNft() public {
@@ -53,7 +52,7 @@ contract MoodNft is ERC721 {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "data:application/json;base64";
+        return "data:application/json;base64,";
     }
 
     function tokenURI(
