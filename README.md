@@ -4,3 +4,4 @@ All things I've done during my web3 education - Solidity + Foundry + Web3 Securi
 <i>Ongoing Web3 learning process featuring a collection of projects that track my progress in mastering blockchain development and Web3 security concepts. More projects yet to come! Everything is subject to change! MIT license!</i>
 
 List of resources: 
+https://www.youtube.com/watch?v=-1GB6m39-rM
